@@ -26,11 +26,12 @@ ddim_sampler = DDIMSampler(model)
 def process(input_image, prompt, a_prompt, n_prompt, num_samples, image_resolution, detect_resolution, ddim_steps, guess_mode, strength, scale, seed, eta):
     with torch.no_grad():
         input_image = HWC3(input_image)
-        detected_map = apply_uniformer(resize_image(input_image, detect_resolution))
+        # detected_map = apply_uniformer(resize_image(input_image, detect_resolution))
         img = resize_image(input_image, image_resolution)
         H, W, C = img.shape
 
-        detected_map = cv2.resize(detected_map, (W, H), interpolation=cv2.INTER_NEAREST)
+        # detected_map = cv2.resize(detected_map, (W, H), interpolation=cv2.INTER_NEAREST)
+        detected_map = img
 
         control = torch.from_numpy(detected_map.copy()).float().cuda() / 255.0
         control = torch.stack([control for _ in range(num_samples)], dim=0)
