@@ -8,7 +8,7 @@ from torch.utils.data import Dataset
 class MyDataset(Dataset):
     def __init__(self):
         self.data = []
-        with open('./railsem_control_dataset/prompt.json', 'rt') as f:
+        with open('/content/railsem_control_dataset/prompt.json', 'rt') as f:
             for line in f:
                 self.data.append(json.loads(line))
 
@@ -22,8 +22,8 @@ class MyDataset(Dataset):
         target_filename = item['target']
         prompt = item['prompt']
 
-        source = cv2.imread('./railsem_control_dataset/' + source_filename)
-        target = cv2.imread('./railsem_control_dataset/' + target_filename)
+        source = cv2.imread('/content/railsem_control_dataset/' + source_filename, cv2.IMREAD_COLOR)
+        target = cv2.imread('/content/railsem_control_dataset/' + target_filename, cv2.IMREAD_COLOR)
 
         # Do not forget that OpenCV read images in BGR order.
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
